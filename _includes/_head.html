@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }} {{ site.subtitle }}</title>
+    <link rel="stylesheet" href="https://arfp.github.io/assets/css/style.css">
+    <link rel="stylesheet" href="/blog/assets/css/style.css">
+    <script src="https://arfp.github.io/assets/js/main.js" defer></script>
+</head>
+<body id="app">
+    <header id="top" role="banner">
+        <a id="logo" href="{{ "/" | absolute_url  }}" title="{{ site.title }} {{ site.subtitle }}">
+            {{ site.title }} <span>{{ site.subtitle }}</span>
+        </a>
+        <nav role="navigation">
+            <ul id="menu">
+                <li style="display: none;"><a id="menuToggle" href="#"><i class="fa fa-bars"></i></a></li>
+                <li><a href="{{ site.linkedin }}"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="{{ site.github }}"><i class="fa fa-github"></i></a></li>
+                <li><a href="#"><i class="fa fa-sun-o" id="theme"></i></a></li>
+            </ul>
+        </nav>
+        {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
+        {% if crumbs.size > 0 %}
+        <nav aria-label="breadcrumb" class="container breadcrumb{% if page.full %} full{% endif %}">
+            <ol>                
+                <li><a href="/"><i class="fa fa-home"></i></a></li>
+                <li><a href="/blog/">Blog</a></li>
+                {% for crumb in crumbs offset: 1 %}
+                {% if forloop.last %}
+                    <li>{{ page.title }}</li>
+                {% else %}
+                    <li><a href="/blog{% assign crumb_limit = forloop.index | plus: 1 %}{% for crumb in crumbs limit: crumb_limit %}{{ crumb | append: '/' }}{% endfor %}">{{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}</a></li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+        {% endif %}
+    </header>
+    
+    <main>    
+    

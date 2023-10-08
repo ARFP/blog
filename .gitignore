@@ -12,6 +12,11 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
 
 # Mono auto generated files
 mono_crash.*

@@ -1,0 +1,38 @@
+{% include _head.html %}
+<h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+<section class="container{% if page.full %} full{% endif %}">
+    {{ content }}
+</section>
+<section class="flex cards">
+  <article>
+    <h2><a href="{{ '/articles/' | absolute_url }}">Derniers articles</a></h2>
+    <ul>
+        {% for post in site.posts %}
+          <li>
+            <a href="{{ post.url | absolute_url }}">{{ post.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+  </article>
+  <article>
+    <h2><a href="{{ '/categories/' | absolute_url }}">Catégories</a></h2>
+    <ul>
+        {% for cat in site.categories %}
+          <li>
+            <a href="{{ '/categories/' | absolute_url }}#cat-{{ cat[0] }}">{{ cat[0] }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+  </article>
+  <article>
+    <h2><a href="{{ '/mots-cles/' | absolute_url }}">Mots clés</a></h2>
+    <ul>
+        {% for tag in site.tags %}
+          <li>
+            <a href="{{ '/mots-cles/' | absolute_url }}#tag-{{ tag[0] }}">{{ tag[0] }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+  </article>    
+</section>
+{% include _foot.html %} 
