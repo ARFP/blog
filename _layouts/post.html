@@ -1,0 +1,9 @@
+{% include _head.html %}
+<h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+<section>
+    <header class="post-header">
+        Par {{ page.author }} le {{ page.date | date: "%-d/%-m/%Y à %R" }}
+    </header>
+    {{ content }}
+</section>
+{% include _foot.html %}

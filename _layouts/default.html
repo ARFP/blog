@@ -1,0 +1,6 @@
+{% include _head.html %}
+<h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+<section class="container{% if page.full %} full{% endif %}">
+    {{ content }}
+</section>
+{% include _foot.html %}
