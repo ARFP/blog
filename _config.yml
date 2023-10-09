@@ -1,0 +1,33 @@
+title: "Blog Pédagogique"
+subtitle: "" 
+description: >- # this means to ignore newlines until "baseurl:"
+  Le blog des stagiaires et intervenants en conception et développement informatique au CRM.
+baseurl: "/blog" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+owner: "MDevoldère"
+owner_url: "https://devoldere.net/"
+customer: ARFP
+customer_url: "http://www.arfp.asso.fr/"
+github: "https://github.com/ARFP/"
+github_repo: "https://github.com/ARFP/blog/"
+linkedin: "https://www.linkedin.com/company/centre-readaptation-mulhouse/"
+
+# permalink: 'articles/:year/:month/:slug.html' # posts permalink format 
+permalink: 'articles/:categories/:slug.html' # posts permalink format 
+
+plugins:
+  - jekyll-feed
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"
+  -
+      scope:
+        path: ""
+        type: "posts" # a collection in your site, in plural form
+      values:
+        layout: "post"
+        author: "CRM"
