@@ -13,7 +13,8 @@ github_repo: "https://github.com/ARFP/blog/"
 linkedin: "https://www.linkedin.com/company/centre-readaptation-mulhouse/"
 
 # permalink: 'articles/:year/:month/:slug.html' # posts permalink format 
-permalink: 'articles/:categories/:slug.html' # posts permalink format 
+# permalink: 'articles/:categories/:slug.html' # posts permalink format 
+permalink: 'articles/:year:month:day-:slug.html' # posts permalink format 
 
 plugins:
   - jekyll-feed
