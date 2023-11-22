@@ -1,6 +1,6 @@
 ---
 title: "Le daily Scrum Meeting"
-date: 2023-11-22 13:37:00 +0200 
+date: 2023-11-22 10:37:00 +0200 
 categories: metier
 tags: metier gestion projet 
 author: mdevoldere
