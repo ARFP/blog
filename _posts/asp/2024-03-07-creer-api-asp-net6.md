@@ -44,7 +44,57 @@ public class Country
 }
 ```
 
+Une `entité` est une classe métier qui servira de `modèle` pour la création d'une table correspondante en base de données. Dans notre cas, la classe `Country` sera convertie en table lorsque nous demanderons à `EntityFramework` de synchroniser nos entités avec la base de données. Ce point sera développé dans la suite de cet article.
+
+`EntityFramework` reconnaitra la propriété `Id` comme la future clé primaire de la table. Dans la convention d'EntityFramework, nous aurions pu nommer la propriété `CountryId` qui aurait également été reconnue comme clé primaire.
+
+## Création du contexte de base de données 
+
+> [Tutoriel: Créer le contexte de base de données](https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx)
+
+Lorsque nos entités sont créées, nous pouvons créer le contexte de base de données. Il s'agit d'une classe dont le rôle sera d'interagir avec la base de données. 
 
 
+Dans votre projet, créer un dossier `Database`. Dans ce répertoire , créer une classe `CountriesDbContext` qui contient le code suivant : 
 
-- [Tutoriel: Créer le contexte de base de données](https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx)
+```csharp
+using ApiPays.Entity;
+using Microsoft.EntityFrameworkCore;
+
+namespace ApiPays.Database
+{
+    public class CountriesDbContext : DbContext
+    {
+        public DbSet<Country> Countries { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=(LocalDb)\\mssqllocaldb;Database=db_countries");
+        }
+    }
+}
+```
+
+La classe doit obligatoirement hériter de la classe `DbContext` qui se trouve dans l'espace de noms `Microsoft.EntityFrameworkCore`.
+
+Les entités qui doivent être synchronisées avec la base de données doivent être référencées dans une propriété de type `DbSet<>` au sein de notre contexte de base de données (ici `CountriesDbContext`).
+
+Notre entité `Country` est ici référencée à la ligne `public DbSet<Country> Countries { get; set; }`. Le nom de la propriété sera le nom de la table qui sera créee dans la base de données.
+
+Le contexte de base de données doit également connaitre les informations de connexion à la base de données. Ces informations sont précisées dans la méthode surchargée `OnConfiguring`.
+
+```csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    optionsBuilder.UseSqlServer("Server=(LocalDb)\\mssqllocaldb;Database=db_countries");
+}
+```
+
+**optionsBuilder.UseSqlServer:** la base de données sera SqlServer
+
+**Server=(LocalDb)\\mssqllocaldb;Database=db_countries:** c'est la chaine de connexion au serveur local de Visual Studio. Il s'agit d'une instance de SQLServer Express intégrée à Visual Studio. Cette chaine de conneixon référence l'adresse du serveur `Server=(LocalDb)\\mssqllocaldb` et le nom de la base de données `Database=db_countries`. Dans le cas d'utilisation de la base de données locale, aucune authentification n'est nécessaire.
+
+
+## Référencer le contexte de base de données 
+
+
