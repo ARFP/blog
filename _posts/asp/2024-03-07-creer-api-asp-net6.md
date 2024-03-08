@@ -34,6 +34,7 @@ Dans ce répertoire, créer une classe `Country` qui représentera un pays.
 Code de la classe `Country` : 
 
 ```csharp
+// Entity/Country.cs
 public class Country
 {
     public int Id { get; set; }
@@ -58,6 +59,7 @@ Lorsque nos entités sont créées, nous pouvons créer le contexte de base de d
 Dans votre projet, créer un dossier `Database`. Dans ce répertoire , créer une classe `CountriesDbContext` qui contient le code suivant : 
 
 ```csharp
+// Database/CountryDbcontext.cs
 using ApiPays.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -79,7 +81,13 @@ La classe doit obligatoirement hériter de la classe `DbContext` qui se trouve d
 
 Les entités qui doivent être synchronisées avec la base de données doivent être référencées dans une propriété de type `DbSet<>` au sein de notre contexte de base de données (ici `CountriesDbContext`).
 
-Notre entité `Country` est ici référencée à la ligne `public DbSet<Country> Countries { get; set; }`. Le nom de la propriété sera le nom de la table qui sera créee dans la base de données.
+Notre entité `Country` est ici référencée à la ligne 
+
+```csharp 
+public DbSet<Country> Countries { get; set; }
+``` 
+
+Le nom de la propriété sera le nom de la table qui sera créee dans la base de données.
 
 Le contexte de base de données doit également connaitre les informations de connexion à la base de données. Ces informations sont précisées dans la méthode surchargée `OnConfiguring`.
 
@@ -90,11 +98,58 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 }
 ```
 
-**optionsBuilder.UseSqlServer:** la base de données sera SqlServer
+**optionsBuilder.UseSqlServer:** la base de données sera SqlServer. 
 
 **Server=(LocalDb)\\mssqllocaldb;Database=db_countries:** c'est la chaine de connexion au serveur local de Visual Studio. Il s'agit d'une instance de SQLServer Express intégrée à Visual Studio. Cette chaine de conneixon référence l'adresse du serveur `Server=(LocalDb)\\mssqllocaldb` et le nom de la base de données `Database=db_countries`. Dans le cas d'utilisation de la base de données locale, aucune authentification n'est nécessaire.
 
 
 ## Référencer le contexte de base de données 
 
+Pour être reconnu par l'application, le DbContext doit être référencé dans le fichier `Program.cs` qui se trouve à la racine du projet.
 
+Après la ligne 
+
+```csharp
+// Program.cs
+var builder = WebApplication.CreateBuilder(args);
+```
+
+Ajouter la ligne : 
+
+```csharp
+// Program.cs
+builder.Services.AddDbContext<CountriesDbContext>();
+```
+`
+Cette ligne ajoute le CountryDbcontext créé précédemment à la liste des services disponibles dans l'application. Sans cette ligne, le CountryDbcontext ne sera pas reconnu à l'exécution.
+
+## Créer le contrôleur 
+
+Pour exposer notre entité `Country` sur l'API; il est nécessaire de créer un contrôleur qui contiendra les différentes opérations CRUD sur l'entité : 
+
+Procédure pour créer un contrôleur : 
+
+1. Clic droit sur le dossier `Controllers`
+2. Sélectionner `Ajouter --> Contrôleur`
+3. Une fenêtre s'ouvre, sélectionner `Api` dans les options puis `Contrôleur d'API avec actions, utilisant entity Framework`
+
+![asp-api-controller](/blog/assets/img/asp-api-add-controller.jpg)
+
+4. Le contrôleur est généré.
+
+## Tester l'API
+
+Enregistrer votre travail et démarrer le projet. Au démarrage, le projet est exécuté dans le navigateur web.
+
+L'interface de Swagger s'affiche et vous devriez voir apparaitre l'entité et les opérations associées.
+
+![asp-api-controller](/blog/assets/img/asp-api-swagger-countries.jpg)
+
+
+## Les annotations 
+
+- TODO 
+
+## Les relations OneToMany
+
+- TODO
