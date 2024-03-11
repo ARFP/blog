@@ -6,7 +6,13 @@ categories: asp api dotnet
 
 Dans cet article, vous apprendrez à créer une API avec ASP.NEt (.net6) et Visual Studio 2022. 
 
-Pas à pas, cet article vous amènera à créer une API de gestion de Pays et de Villes.
+Pas à pas, cet article vous amènera à créer une API de gestion de Pays et de Villes en utilisant l'approche `Code First`.
+
+L'approche `Code First` permet de définir le modèle de données en utilisant du code `C#` et de générer ensuite la base de données à partir de ce modèle. Cette approche est complémentaire au `Domain Driver Developement` (DDD) qui est une méthodologie de conception qui met l'accent sur le domaine métier et sur la création d'un modèle de données riche et précis.
+
+- Le Domain Driver Development se concentre sur la conceptualisation du domaine métier
+- L'approche Code First est utilisée pour implémenter le domaine métier conçu selon les principes du DDD.
+
 
 
 ## Procédure pour créer le projet
@@ -49,7 +55,7 @@ Une `entité` est une classe métier qui servira de `modèle` pour la création 
 
 `EntityFramework` reconnaitra la propriété `Id` comme la future clé primaire de la table. Dans la convention d'EntityFramework, nous aurions pu nommer la propriété `CountryId` qui aurait également été reconnue comme clé primaire.
 
-## Création du contexte de base de données 
+## Créer le contexte de base de données 
 
 > [Tutoriel: Créer le contexte de base de données](https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx)
 
@@ -120,8 +126,36 @@ Ajouter la ligne :
 // Program.cs
 builder.Services.AddDbContext<CountriesDbContext>();
 ```
-`
+
 Cette ligne ajoute le CountryDbcontext créé précédemment à la liste des services disponibles dans l'application. Sans cette ligne, le CountryDbcontext ne sera pas reconnu à l'exécution.
+
+## Synchroniser les entités et la base de données
+
+Lorsque des nouvelles entités ont été créées ou que les entités existantes ont été modifiées, il est nécessaire d'exécuter une `Migration`.
+
+Une migration permet de gérer l'évolution du schéma de la base de données en synchronisant les modifications apportées au modèle de données (les entités) avec la base de données elle-même.
+
+**Fonctionnement**
+
+1. Comparaison du modèle de données avec la structure de la base de données
+2. Génération d'un script SQL pour migrer la base de données vers le nouveau modèle
+3. Exécution du script SQL pour mettre à jour la base de données
+
+**En détails, voici comment exécuter une nouvelle migration :**
+
+1. Ouvrir la console du gestionnaire de package Nuget
+2. Sélectionner le projet sur lequel appliquer la migration (dans le menu déroulant au dessus de la console)
+3. Taper la commande `add-migration nom_de_la_migration`
+    - Le nom de la migration est libre et permettra de l'annuler si besoin
+4. Le script SQL est généré dans le répertoire **Migrations** du projet
+5. Le développeur contrôle le code de la migration pour vérifier que tout est en ordre
+6. Taper la commande `update-database` pour appliquer la migration et mettre à jour la base de données vers le nouveau modèle.
+
+A chaque fois que des modifications sont apportées aux entités (le modèle de données), il sera nécessaire d'appliquer une nouvelle migration.
+
+## Vérifier la base de données
+
+Vous pouvez utiliser l'explorateur d'objets SQL Server de VisualStudio acessible dans le menu `Afficher --> Explorateur d'objets SQL Server` pour parcourir la base de données et vérifier la structure des tables.
 
 ## Créer le contrôleur 
 
@@ -148,8 +182,16 @@ L'interface de Swagger s'affiche et vous devriez voir apparaitre l'entité et le
 
 ## Les annotations 
 
-- TODO 
+Les annotations sont des metadonnées ajoutées au code source pour fournir des informations supplémentaires.
+
+Dans l'approche Code First, les annotations sont utilisées pour configurer les entités et leurs attributs (format de données, validité des valeurs dans les attributs, relations entre entités...)
+
+- [Les annotations EntityFramework](https://www.entityframeworktutorial.net/code-first/dataannotation-in-code-first.aspx)
 
 ## Les relations OneToMany
 
-- TODO
+- [Les relations OneToMany avec EntityFramework](https://www.entityframeworktutorial.net/code-first/configure-one-to-many-relationship-in-code-first.aspx)
+
+## Les relations ManyToMany
+
+- [Les relations ManyToMany avec EntityFramework](https://www.entityframeworktutorial.net/code-first/configure-many-to-many-relationship-in-code-first.aspx)
