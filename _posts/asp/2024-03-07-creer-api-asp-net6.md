@@ -56,7 +56,6 @@ Une `entité` est une classe métier qui servira de `modèle` pour la création 
 
 ## Créer le contexte de base de données 
 
-
 > [Tutoriel: Créer le contexte de base de données](https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx)
 
 Lorsque nos entités sont créées, nous pouvons créer le contexte de base de données. Il s'agit d'une classe dont le rôle sera d'interagir avec la base de données. 
@@ -197,4 +196,3 @@ Dans l'approche Code First, les annotations sont utilisées pour configurer les 
 ## Les relations ManyToMany
 
 - [Les relations ManyToMany avec EntityFramework](https://www.entityframeworktutorial.net/code-first/configure-many-to-many-relationship-in-code-first.aspx)
-
