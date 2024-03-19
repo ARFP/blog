@@ -14,7 +14,6 @@ L'approche `Code First` permet de définir le modèle de données en utilisant d
 - L'approche Code First est utilisée pour implémenter le domaine métier conçu selon les principes du DDD.
 
 
-
 ## Procédure pour créer le projet
 
 1. Ouvrir Visual Studio Community
@@ -56,6 +55,7 @@ Une `entité` est une classe métier qui servira de `modèle` pour la création 
 `EntityFramework` reconnaitra la propriété `Id` comme la future clé primaire de la table. Dans la convention d'EntityFramework, nous aurions pu nommer la propriété `CountryId` qui aurait également été reconnue comme clé primaire.
 
 ## Créer le contexte de base de données 
+
 
 > [Tutoriel: Créer le contexte de base de données](https://www.entityframeworktutorial.net/efcore/entity-framework-core-dbcontext.aspx)
 
@@ -127,6 +127,7 @@ Ajouter la ligne :
 builder.Services.AddDbContext<CountriesDbContext>();
 ```
 
+
 Cette ligne ajoute le CountryDbcontext créé précédemment à la liste des services disponibles dans l'application. Sans cette ligne, le CountryDbcontext ne sera pas reconnu à l'exécution.
 
 ## Synchroniser les entités et la base de données
@@ -156,6 +157,7 @@ A chaque fois que des modifications sont apportées aux entités (le modèle de 
 ## Vérifier la base de données
 
 Vous pouvez utiliser l'explorateur d'objets SQL Server de VisualStudio acessible dans le menu `Afficher --> Explorateur d'objets SQL Server` pour parcourir la base de données et vérifier la structure des tables.
+
 
 ## Créer le contrôleur 
 
@@ -195,3 +197,4 @@ Dans l'approche Code First, les annotations sont utilisées pour configurer les 
 ## Les relations ManyToMany
 
 - [Les relations ManyToMany avec EntityFramework](https://www.entityframeworktutorial.net/code-first/configure-many-to-many-relationship-in-code-first.aspx)
+
