@@ -14,7 +14,6 @@ L'approche `Code First` permet de définir le modèle de données en utilisant d
 - L'approche Code First est utilisée pour implémenter le domaine métier conçu selon les principes du DDD.
 
 
-
 ## Procédure pour créer le projet
 
 1. Ouvrir Visual Studio Community
@@ -127,6 +126,7 @@ Ajouter la ligne :
 builder.Services.AddDbContext<CountriesDbContext>();
 ```
 
+
 Cette ligne ajoute le CountryDbcontext créé précédemment à la liste des services disponibles dans l'application. Sans cette ligne, le CountryDbcontext ne sera pas reconnu à l'exécution.
 
 ## Synchroniser les entités et la base de données
@@ -156,6 +156,7 @@ A chaque fois que des modifications sont apportées aux entités (le modèle de 
 ## Vérifier la base de données
 
 Vous pouvez utiliser l'explorateur d'objets SQL Server de VisualStudio acessible dans le menu `Afficher --> Explorateur d'objets SQL Server` pour parcourir la base de données et vérifier la structure des tables.
+
 
 ## Créer le contrôleur 
 
