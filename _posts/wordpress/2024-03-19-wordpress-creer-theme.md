@@ -95,22 +95,17 @@ Le schéma de la hiérarchie des templates peut se lire de gauche à droite. Si 
 
 Voici quelques exemples de pages et le chemin emprunté par WordPress pour afficher un modèle de page en fonction de celle demandée :
 
-
-**Affichage de la page d’accueil** : fichier *home.php* ou *front-page.php*, ou *index.php* (par défaut)
-
-**Affichage d’une page d’article** : *single-{post-type}-{slug}.php* (le post-type correspondant au type de publication), ou *single-{post-type}.php*, ou *single.php*, ou *singular.php*, ou *index.php* (par défaut)
-
-**Affichage d’une page** : un modèle de page choisi lors de la rédaction de la page parmi le menu « modèle de page » (si l’option est utilisée), ou *page-{slug}.php*, ou *page-{id}.php*, ou *page.php*, ou *singular.php* ou *index.php* (par défaut)
-
-**Affichage d’une catégorie** : *category-{slug}.php* (ex : category-news.php si le slug est news), ou *category-{id}.php*, ou *category.php*, ou *archive.php*, ou *index.php* (par défaut)
-
-**Affichage d’un auteur** : *author.php*, ou *archive.php*, ou *index.php* (par défaut)
-
-**Affichage d’une page datée** :  *date.php*, ou *archive.php*, ou *index.php* (par défaut)
-
-**Affichage d’une page de résultats de recherche** : *search.php*, ou *index.php* (par défaut)
-
-**Affichage d’une page 404** : *404.php*, ou *index.php* (par défaut).
+| Contexte à afficher | Templates par ordre de priorité |
+|--- |--- |
+| **La page d'accueil** | home.php ou front-page.php, ou index.php |
+| **Une liste d'articles**  | archive.php ou index.php |
+| **Un article** | single-{post-type}-{slug}.php (le post-type correspondant au type de publication), ou single-{post-type}.php, ou single.php, ou singular.php, ou index.php |
+| **Une page** | un modèle de page choisi lors de la rédaction de la page parmi le menu « modèle de page » (si l’option est utilisée), ou page-{slug}.php, ou page-{id}.php, ou page.php, ou singular.php ou index.php |
+| **Une catégorie** | category-{slug}.php (ex : category-news.php si le slug est news), ou category-{id}.php, ou category.php, ou archive.php, ou index.php |
+| **Un auteur** | author.php, ou archive.php, ou index.php  |
+| **Une page datée** | date.php, ou archive.php, ou index.php |
+| **Les résultats d'une recherche** | search.php, ou index.php |
+| **La page d'erreur 404** | 404.php, ou index.php |
 
 
 Lors de la création de votre thème, vous avez la liberté de créer ou non l’ensemble de ces fichiers pour chaque modèle de page. Une seule exception : le fichier **index.php** doit être obligatoirement présent dans le dossier de votre thème, car c’est le fichier que WordPress charge par défaut pour afficher le modèle d’une page de votre site.
