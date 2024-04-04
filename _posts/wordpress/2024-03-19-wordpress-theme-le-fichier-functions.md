@@ -1,15 +1,15 @@
 ---
 title: "Thème Wordpress: Le fichier functions.php"
-date: 2024-03-19 08:45:00 +0200 
+date: 2024-03-19 13:00:00 +0200 
 categories: php wordpress 
 tags: php wordpress cms
 ---
 
-Le fichier **functions.php** de WordPress vous permet d’ajouter des fonctionnalités à votre thème.  Comprendre le fonctionnement du fichier functions.php peut donc vous aider à construire un meilleur site WordPress.
+Le fichier **functions.php** de WordPress vous permet d’ajouter des fonctionnalités à votre thème.
 
-Dans ce guide, vous allez apprendre tout ce que vous devez savoir sur ce fichier.
+Dans cet article, vous allez apprendre l'essentiel à savoir sur ce fichier.
 
-Cet article vous propose également quelques extraits de code utiles  pour vous aider à personnaliser votre site (code à inclure dans le fichier functions.php).
+Cet article vous propose également quelques extraits de code utiles à inclure dans le fichier functions.php pour vous aider à personnaliser votre thème.
 
 ## Que fait le fichier functions.php de WordPress ?
 
@@ -22,9 +22,9 @@ Vous pouvez apporter des modifications à n’importe quelle partie de votre sit
 Voici quelques types d’ajustements courants que vous pouvez effectuer à l’aide du fichier functions.php :
 
 - Modifier le comportement de base de WordPress, comme le nombre d’articles à afficher sur la page de résultats de recherche ou le contenu à inclure dans le flux RSS de votre site.
-- Créer vos propres codes courts personnalisés.
+- Créer vos propres codes courts (shortcodes) personnalisés.
 - Ajouter du nouveau contenu ou des scripts à votre site, par exemple en injectant un script Javascript ou en modifiant le pied de page de votre site.
-- Et ce n’est pas tout..
+- Et ce n’est pas tout...
 
 Étant donné que le fichier functions.php vous permet d’ajouter des extraits de code PHP personnalisés à votre site plutôt que du HTML statique, les possibilités de modification sont *quasi* illimitées.
 
@@ -36,30 +36,22 @@ Par exemple, si vous utilisez un thème nommé **montheme**, le fichier function
 
 ## Comment travailler en toute sécurité avec le fichier functions.php
 
-Parce que travailler avec le fichier WordPress functions.php implique d’ajouter du code à votre site web, il est important de suivre quelques bonnes pratiques avant de commencer à faire des modifications.
-
-Même quelque chose d’aussi simple qu’une virgule ou une apostrophe manquante peut déclencher des erreurs sur votre site Wordpress.
-
-Dans les versions récentes de WordPress, la gestion de ces erreurs a été améliorée, notamment en affichant le message « Une erreur critique s’est produite sur votre site web » ou en vérifiant la présence d’erreurs PHP avant d’enregistrer vos modifications.
-
-Cependant, pour éviter tout problème, nous vous recommandons de suivre les meilleures pratiques suivantes..
+Parce que travailler avec le fichier WordPress functions.php implique d’ajouter du code à votre site web, il est important de suivre les  bonnes pratiques lorsque vous ajoutez des modifications.
 
 ### Testez votre code functions.php sur un site de staging
 
 Avant d’ajouter du code  dans le fichier functions.php, nous vous recommandons de les tester d’abord en local puis sur une version de *staging* de votre site. Cela vous permet de vérifier qu’il n’y a pas d’erreurs potentielles et que le code fonctionne comme prévu.
 
-> Info
->
 > Un « site de staging » est une copie identique de votre site en production qui se trouve dans un bac à sable sécurisé et privé. Il vous permet de tester les modifications sans avoir à utiliser le mode de maintenance sur votre site réel.
 
 ### Sauvegardez votre site avant de publier une nouvelle version de votre fichier functions.php
 
-Il s’agit d'ailleurs d’une bonne pratique à suivre lorsque vous modifiez des fichiers WordPress.
->
-> En cas de problème, vous pouvez restaurer les anciens fichiers pour rétablir instantanément le fonctionnement de votre site.
+Il s’agit d'ailleurs d’une bonne pratique à suivre lorsque vous modifiez des fichiers dans n'importe quelle application web.
+
+> Sauvegarder les fichiers avant de publier une nouvelle version permet, en cas de problème, de restaurer les anciens fichiers pour rétablir instantanément le fonctionnement de votre site.
 
 
-### Utilisez toujours un thème enfant si vous modifiez le fichier functions.php d'un thème déjà existant. 
+### Utilisez toujours un thème enfant si vous souhaitez modifier le fichier functions.php d'un thème déjà existant. 
 
 Pour éviter que les modifications que vous avez apportées au fichier functions.php de votre thème ne soient écrasées, vous devez toujours utiliser un thème enfant WordPress et ajouter votre code au fichier functions.php du thème enfant.
 
@@ -80,6 +72,93 @@ Bien que cela puisse sembler compliqué, c’est en fait beaucoup plus simple qu
 ## Principales fonctions utiles du fichier functions.php
 
 Passons maintenant en revue certains des extraits de code les plus utiles que vous pouvez ajouter au fichier functions.php.
+
+### Activer des fonctionnalités Wordpress pour votre thème
+
+Lorsque vous créez un nouveau thème, certaines fonctionnalités de Wordpress sont désactivées par défaut.
+
+```php
+// functions.php
+/**
+ * Déclare des fonctionnalités à activer pour le thème courant
+ */
+function myThemeSetup() {
+    // Active l'image de mise en avant pour les articles et les pages
+    add_theme_support('post-thumbnails');
+
+    // Active les types d'articles utilisables dans WP autres que 'article' et 'page'
+    add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat']);
+
+}
+
+/** Active les fonctionnélités déclarées dans MyThemeSetup */
+add_action('after_setup_theme', 'myThemeSetup');
+```
+
+D'autre fonctionnalités peuvent être activées, vous trouverez d'autres exemples sur [la documentation Wordpress](https://developer.wordpress.org/reference/functions/add_theme_support/).
+
+### Déclarer un menu configurable
+
+Les menus sont un moyen efficace dont vous pouvez vous servir pour faciliter la navigation sur votre site. À travers un menu personnalisé, vous pouvez afficher des liens vers les contenus pertinents pour vos visiteurs.
+
+```php
+// functions.php
+/**
+ * Déclare un ou plusieurs menu(s) configurable(s) dans le back-office (Apparence->Menus)
+ */
+function registerMyMenu() {
+    register_nav_menu('header', 'Mon menu principal');
+}
+
+/** Enregistre le ou les menus déclarés dans la fonction registerMyMenu */
+add_action('after_setup_theme', 'registerMyMenu');
+```
+
+Une fois le menu déclaré, il faut indiquer à Wordpress à quel endroit vous souhaitez afficher ce menu, par exemple dans le template `header.php` pour le menu de navigation principal du site ou dans le template `footer.php` pour les liens de pied de page.
+
+```php
+// Affiche le menu 'header'
+wp_nav_menu([
+    'theme_location' => 'header',
+    'menu_class' => 'my-menu',
+    'container' => false
+]);
+```
+L'entrée `theme_location` correspond à l'identifiant du menu déclaré en 1er argument de register_nav_menu() dans le fichier functions.php.
+
+Rendez-vous ensuite dans le back-office dans la section `Apparence -> Menus` pour personnaliser les éléments du menu.
+
+> Vous pouvez déclarer plusieurs menus dans votre fichier functions.php
+
+Plus d'informations sur les menus Wordpress sur le site [Capitaine WP](https://capitainewp.io/formations/developper-theme-wordpress/menus-moteur-recherche/)
+
+### Activer et utiliser les widgets 
+
+Les widgets sont des éléments interactifs que l’on retrouve en général dans la barre latérale du blog, et qui permettent d’afficher des informations comme la liste des derniers articles, commentaires, les catégories, un calendrier, etc...
+
+```php
+// functions.php 
+
+/** Déclare une "sidebar" configurable dans le back-office (Apparence->widgets) */
+register_sidebar([
+    'id' => 'blog-sidebar',
+    'name' => 'Blog',
+]);
+```
+
+Vous devez ensuite invoquer la fonction `dynamic_sidebar` à l'endroit où vous souhaitez afficher la sidebar et les éléments qu'elle contient (dans l'un des fichiers templates de votre thème, le header ou le footer par exemple).
+
+```php 
+// Affiche la sidebar "blog-sidebar"
+dynamic_sidebar('blog-sidebar'); 
+```
+
+Le paramètre de la fonction `dynamic_sidebar` correspond au 1er paramètre de la fonction `register_sidebar` invoquée dans le fichier functions.php.
+
+Rendez-vous ensuite dans le back-office de Wordpress dans la section `Apparence -> Widgets` pour configurer les éléments à afficher dans la sidebar.
+
+Plus d'infos sur les Widgets Wordpress sur le site [Capitaine WP](https://capitainewp.io/formations/developper-theme-wordpress/sidebars-widgets/)
+
 
 ### Afficher la date de dernière modification sur les articles de blog
 
@@ -115,6 +194,8 @@ Si vous voulez changer cela, vous pouvez masquer la barre d’outils WordPress p
 Cet exemple masquerait la barre d’outils d’administration pour les comptes ayant le rôle d’auteur ou autrice.
 
 ```php
+// functions.php
+
 add_filter( 'show_admin_bar', function($show) {
   if ( current_user_can( 'author' ) ) {
     return false;
@@ -127,11 +208,11 @@ add_filter( 'show_admin_bar', function($show) {
 
 Pour éviter d’encombrer la base de données de votre site, vous pouvez limiter le nombre de révisions d’articles à enregistrer.
 
-Une façon de limiter les révisions des articles WordPress sur l’ensemble du site est de modifier le fichier **wp-config.php** de votre site. Cependant, vous pourriez vouloir stocker différents nombres de révisions pour différents types de publications, par exemple, les articles de blog par rapport aux pages.
-
 L'extrait de code qui suit vous permet de le faire. Pour l’adapter à vos besoins, remplacez le type de publication (« post » dans cet exemple) par le type de publication que vous souhaitez contrôler et le nombre (« 5 » dans cet exemple) par le nombre de révisions que vous souhaitez stocker.
 
 ```php
+// functions.php
+
 function limit_revisions_by_type( $revisions, $post ) {
 
   if( 'post' == $post->post_type ) {
@@ -154,6 +235,8 @@ Par exemple, même si vous n’affichez pas de champ de recherche sur votre site
 Pour cela, vous pouvez ajouter l’extrait de code suivant :
 
 ```php
+// functions.php
+
 function disable_wp_search( $query, $error = true ) {
 
   if ( is_search() ) {
@@ -184,6 +267,8 @@ Par exemple, un cas d’utilisation courant est la création d’un code court q
 Pour créer un tel code court, vous pouvez utiliser le code suivant :
 
 ```php
+// functions.php
+
 function year_shortcode() {
   $year = date('Y');
   return $year;
@@ -201,6 +286,8 @@ Par défaut, WordPress n’exécute pas les codes courts que vous placez dans le
 Par exemple, combiné à l’extrait de code précédent, il vous permettrait d’inclure automatiquement l’année en cours dans le titre de l’article en ajoutant le code court [currentyear].
 
 ```php
+// functions.php
+
 add_filter( 'the_title', 'do_shortcode' );
 ```
 
@@ -211,6 +298,8 @@ Par défaut, WordPress affiche un message explicatif lorsque les tentatives de c
 Pour éviter de divulguer des informations potentiellement sensibles, vous pouvez masquer ces erreurs de connexion en ajoutant l’extrait de code suivant à votre fichier functions.php.
 
 ```php
+// functions.php
+
 function hide_login_errors(){
   return 'Identifiant ou mot de passe incorrect';
 }
@@ -228,6 +317,8 @@ Par défaut, l’extrait WordPress affiche les 55 premiers mots d’un article.
 Si vous souhaitez modifier cette longueur, vous pouvez ajouter l’extrait de code suivant au fichier functions.php.
 
 ```php
+// functions.php
+
 function change_excerpt_length($length) {
   return 90;
 }
@@ -243,6 +334,8 @@ Pour que les acteurs malveillants aient plus de mal à détecter la version de W
 Pour cela, vous pouvez ajouter le code suivant à votre fichier functions.php.
 
 ```php
+// functions.php
+
 function hide_version() {
   return '';
 }
@@ -259,6 +352,8 @@ Cependant, cette option modifie le nombre d’articles pour toutes les pages d�
 Pour cela, vous pouvez ajouter cet extrait à votre fichier functions.php – assurez-vous de remplacer le nombre (« 15 » dans cet exemple) par le nombre réel de résultats que vous souhaitez afficher avant de paginer les résultats supplémentaires.
 
 ```php 
+// functions.php
+
 function search_results_list() {
   if ( is_search() )
     set_query_var('posts_per_archive_page', 15);
@@ -274,6 +369,8 @@ Par défaut, WordPress vous empêche de téléverser certains types de fichiers,
 Pour activer la prise en charge de ces types de fichiers bloqués, vous pouvez ajouter l’extrait de code suivant au fichier functions.php de WordPress :
 
 ```php
+// functions.php
+
 function add_myme_types($mime_types){
   $mime_types['svg'] = 'image/svg+xml';
   return $mime_types;
@@ -292,6 +389,8 @@ Même si le rôle d’un utilisateur ne lui permet pas d’appliquer la mise à 
 Pour remédier à cette situation, vous pouvez utiliser cet extrait de code pour masquer les notifications de mise à jour pour tous les utilisateurs qui ne sont pas administrateurs :
 
 ```php
+// functions.php
+
 function hide_update_nag() {
   if ( ! current_user_can( 'update_core' ) ) {
     remove_action( 'admin_notices', 'update_nag', 3 );
@@ -310,6 +409,8 @@ Depuis WordPress 4.5, WordPress a fixé le niveau de qualité par défaut à 82 
 Si vous souhaitez augmenter ou diminuer ce niveau de qualité, vous pouvez ajouter l’extrait de code suivant à votre fichier functions.php – assurez-vous de remplacer le nombre (« 90 » dans cet exemple) par le niveau de qualité que vous souhaitez utiliser :
 
 ```php
+// functions.php
+
 add_filter( 'jpeg_quality', create_function( '', 'return 90;' ) );
 ```
 
@@ -327,7 +428,7 @@ Lorsque vous ajoutez pour la première fois un extrait de code à votre fichier 
 
 Pour éviter cela, vous devez ajouter des commentaires de code à chaque extrait qui expliquent ce que fait l’extrait et pourquoi vous l’avez ajouté.
 
-Les commentaires de code sont du texte qui n’est pas exécuté par WordPress, mais que les utilisateurs humains peuvent lire pour comprendre ce que fait l’extrait de code.
+Les commentaires de code sont du texte qui n’est pas exécuté par PHP, mais que les utilisateurs humains peuvent lire pour comprendre ce que fait l’extrait de code.
 
 Pour ajouter un commentaire de code d’une seule ligne, vous pouvez utiliser ce format :
 
@@ -344,6 +445,7 @@ Pour ajouter un commentaire de code sur plusieurs lignes, vous pouvez utiliser c
 * This is the last line in the code comment
 */
 ```
+
 > Commenter son code est une bonne pratique à appliquer dans tous vos développements !!!
 
 

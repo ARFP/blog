@@ -9,6 +9,8 @@ Cet article détaille le fonctionnement de la boucle Wordpress.
 
 La boucle WordPress, également appelée "The Loop" en anglais, est un élément central du système de gestion de contenu WordPress. C'est un mécanisme permettant d'afficher dynamiquement du contenu, comme des articles, des pages ou des produits, en fonction de critères spécifiques.
 
+[La boucle Wordpress : Documentation officielle](https://codex.wordpress.org/fr:La_Boucle)
+
 ## Fonctionnement
 
 La boucle WordPress fonctionne en parcourant des articles ou des pages, et en exécutant un code spécifique pour chaque élément de la séquence. Ce code peut inclure l'affichage du titre, du contenu, de l'auteur, de la date de publication, etc...
