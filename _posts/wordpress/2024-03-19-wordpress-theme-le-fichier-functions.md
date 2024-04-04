@@ -51,7 +51,7 @@ Il s’agit d'ailleurs d’une bonne pratique à suivre lorsque vous modifiez de
 > Sauvegarder les fichiers avant de publier une nouvelle version permet, en cas de problème, de restaurer les anciens fichiers pour rétablir instantanément le fonctionnement de votre site.
 
 
-### Utilisez toujours un thème enfant si vous souhaitez modifie le fichier functions.php d'un thème déjà existant. 
+### Utilisez toujours un thème enfant si vous souhaitez modifier le fichier functions.php d'un thème déjà existant. 
 
 Pour éviter que les modifications que vous avez apportées au fichier functions.php de votre thème ne soient écrasées, vous devez toujours utiliser un thème enfant WordPress et ajouter votre code au fichier functions.php du thème enfant.
 
