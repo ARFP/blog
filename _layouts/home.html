@@ -14,7 +14,7 @@
         {% endfor %}
       </ul>
   </article>
-  <article>
+  <article class="blog-categories">
     <h2><a href="{{ '/categories/' | absolute_url }}">Catégories</a></h2>
     <ul>
         {% for cat in site.categories %}
@@ -24,7 +24,7 @@
         {% endfor %}
       </ul>
   </article>
-  <article>
+  <article class="blog-keywords">
     <h2><a href="{{ '/mots-cles/' | absolute_url }}">Mots clés</a></h2>
     <ul>
         {% for tag in site.tags %}

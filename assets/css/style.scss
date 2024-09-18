@@ -8,3 +8,7 @@
 .post-header {
     text-align: right;
 }
+
+.blog-categories li a::first-letter, .blog-keywords li a::first-letter {
+    text-transform: capitalize;
+}
