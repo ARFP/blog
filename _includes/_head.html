@@ -10,7 +10,7 @@
 </head>
 <body id="app">
     <header id="top" role="banner">
-        <a id="logo" href="{{ "/" | absolute_url  }}" title="{{ site.title }} {{ site.subtitle }}">
+        <a id="logo" href="/" title="{{ site.title }} {{ site.subtitle }}">
             {{ site.title }} <span>{{ site.subtitle }}</span>
         </a>
         <nav role="navigation">
@@ -21,22 +21,24 @@
                 <li><a href="#"><i class="fa fa-sun-o" id="theme"></i></a></li>
             </ul>
         </nav>
-        {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
-        {% if crumbs.size > 0 %}
+        
         <nav aria-label="breadcrumb" class="container breadcrumb{% if page.full %} full{% endif %}">
             <ol>                
                 <li><a href="/"><i class="fa fa-home"></i></a></li>
                 <li><a href="/blog/">Blog</a></li>
-                {% for crumb in crumbs offset: 1 %}
-                {% if forloop.last %}
-                    <li>{{ page.title }}</li>
-                {% else %}
-                    <li><a href="/blog{% assign crumb_limit = forloop.index | plus: 1 %}{% for crumb in crumbs limit: crumb_limit %}{{ crumb | append: '/' }}{% endfor %}">{{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}</a></li>
+                {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
+                {% if crumbs.size > 0 %}
+                    {% for crumb in crumbs offset: 1 %}
+                    {% if forloop.last %}
+                        <li>{{ page.title }}</li>
+                    {% else %}
+                        <li><a href="/blog{% assign crumb_limit = forloop.index | plus: 1 %}{% for crumb in crumbs limit: crumb_limit %}{{ crumb | append: '/' }}{% endfor %}">{{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}</a></li>
+                    {% endif %}
+                    {% endfor %}
                 {% endif %}
-                {% endfor %}
             </ol>
         </nav>
-        {% endif %}
+        
     </header>
     
     <main>    

@@ -12,3 +12,7 @@
 .blog-categories li a::first-letter, .blog-keywords li a::first-letter {
     text-transform: capitalize;
 }
+
+.flex.blog {
+    justify-content: space-evenly;
+}

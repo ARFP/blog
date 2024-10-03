@@ -3,7 +3,7 @@ title: "Catégories"
 permalink: /categories/
 ---
 
-<section class="flex cards">
+<section class="flex cards blog">
 {% for cat in site.categories %}
 <article id="cat-{{ tag[0] }}">
     <h2>{{ cat[0] }}</h2>

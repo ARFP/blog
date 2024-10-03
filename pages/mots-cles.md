@@ -3,7 +3,7 @@ title: "Mots clés"
 permalink: /mots-cles/
 ---
 
-<section class="flex cards">
+<section class="flex cards blog">
 {% for tag in site.tags %}
 <article id="tag-{{ tag[0] }}">
     <h2>{{ tag[0] }}</h2>
